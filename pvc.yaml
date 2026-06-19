@@ -12,14 +12,8 @@ metadata:
     managed-by: kubectl
 spec:
   accessModes:
-    - ReadWriteMany  # 읽기, 쓰기 모드 지정
+    - ReadWriteOnce  # 읽기, 쓰기 모드 지정
   storageClassName: longhorn  # storageClassName: 이라는 옵션을 추가해줌
   resources:
     requests:
-      storage: 2G  # 저장 공간 용량 요청 수치
-  selector:
-    matchLabels:
-      part-of: k8s-khw-project-01
-      component: backend
-      name: hello-kube
-      instance: hello-kube-01-files
+      storage: 2Gi  # 저장 공간 용량 요청 수치
