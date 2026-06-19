@@ -19,5 +19,5 @@ spec:  # 연결 정보 속성
   ports:
     - port: 80
       targetPort: http
-      nodePort: 31231
-  type: ClusterIP  # Ingress 사용할거기 때문에 Node port -> ClusterIP로 변경
+      # nodePort: 31231   type이 NodePort일 때 사용
+  type: ClusterIP  # Ingress 사용할거기 때문에 NodePort -> ClusterIP로 변경
