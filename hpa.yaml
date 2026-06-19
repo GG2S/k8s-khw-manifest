@@ -8,7 +8,7 @@ metadata:
     component: backend
     name: hello-kube
     instance: hello-kube-01
-    version: 1.0
+    version: "1.0"
     managed-by: manual
 spec:
   scaleTargetRef:  # 스케일링 대상 지정

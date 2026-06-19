@@ -8,7 +8,7 @@ metadata:  # metadata는 Object 별로 다 있음
     component: backend
     name: hello-kube
     instance: hello-kube-01
-    version: 1.0
+    version: "1.0"
     managed-by: manual
 spec:  # 연결 정보 속성
   selector:

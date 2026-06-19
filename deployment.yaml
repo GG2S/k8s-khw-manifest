@@ -8,7 +8,7 @@ metadata:
     component: backend
     name: hello-kube
     instance: hello-kube-01
-    version: 1.0
+    version: "1.0"
     managed-by: manual
 spec:
   selector:
@@ -27,7 +27,7 @@ spec:
         component: backend
         name: hello-kube
         instance: hello-kube-01
-        version: 1.0
+        version: "1.0"
     spec:
       nodeSelector:  # Pod를 띄울 Node 선택
         kubernetes.io/hostname: k8s-worker1-khw
