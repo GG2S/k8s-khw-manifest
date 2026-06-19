@@ -1,0 +1,29 @@
+piVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  namespace: k8s-khw-np-01
+  name: hello-kube-01-default
+  labels:
+    part-of: k8s-khw-project-01
+    component: backend
+    name: hello-kube
+    instance: hello-kube-01
+    version: 1.0
+    managed-by: manual
+spec:
+  scaleTargetRef:  // 스케일링 대상 지정
+    apiVersion: apps/v1
+    kind: Deployment  // Deployment 지정
+    name: hello-kube-01
+  minReplicas: 2   // 최소 Pod 수
+  maxReplicas: 4   // 최대 Pod 수
+  metrics:  // 스케일링 조건 지정(임계치 설정)
+    - type: Resource
+      resource:  // cpu 사용량이 40%가 넘으면 스케일링 하라고 지정
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 60
+  behavior:  // 스케일링 동작 상세설정
+    scaleUp:  // Pod가 증가를 한 뒤에 120초 동안 Pod가 더 생성되지 않게 하는 속성
+      stabilizationWindowSeconds: 120

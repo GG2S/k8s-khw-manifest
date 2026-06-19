@@ -1,0 +1,79 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: k8s-khw-np-01  // 소속되고 싶은 namespace 이름 지정
+  name: hello-kube-01        // 해당 Object의 이름 지정
+  labels:
+    part-of: k8s-khw-project-01
+    component: backend
+    name: hello-kube
+    instance: hello-kube-01
+    version: 1.0
+    managed-by: manual
+spec:
+  selector:
+    matchLabels:
+      part-of: k8s-khw-project-01
+      component: backend
+      name: hello-kube
+      instance: hello-kube-01
+  replicas: 2  // 생성할 Pod의 수
+  strategy:    // Pod의 업데이트 방식
+    type: RollingUpdate 
+  template:    // Pod 생성시 적용될 템플릿
+    metadata:
+      labels:
+        part-of: k8s-khw-project-01
+        component: backend
+        name: hello-kube
+        instance: hello-kube-01
+        version: 1.0
+    spec:
+      nodeSelector:  // Pod를 띄울 Node 선택
+        kubernetes.io/hostname: k8s-worker1-khw
+      containers:   
+        - name: hello-kube-01
+          image: 0770asd/hello-kube:v1.0  // DockerHub에서 이미지 다운
+          ports:
+          - name: http
+            containerPort: 8080
+          envFrom:  // Application의 환경 변수 지정
+            - configMapRef:  // ConfigMap Object 지정
+                name: hello-kube-01-properties
+          startupProbe:   // 기동 체크(실패 - 재기동)
+            httpGet:
+              path: "/startup"
+              port: 8080
+            periodSeconds: 5
+            failureThreshold: 36
+          readinessProbe:  // 트래픽 관리(실패 - 연결해제)
+            httpGet:
+              path: "/readiness"
+              port: 8080
+            periodSeconds: 10
+            failureThreshold: 3
+          livenessProbe:   // 서비스 관리(실패 - 재기동)
+            httpGet:
+              path: "/liveness"
+              port: 8080
+            periodSeconds: 10
+            failureThreshold: 3
+          resources:  // cpu, memory 할당 (미설정시 Node전체 자원 사용)
+            requests:
+              memory: "128Mi"
+              cpu: "50m"
+            limits:
+              memory: "256Mi"
+              cpu: "200m"
+          volumeMounts:  // Pod 내부에 만들어지는 디렉토리
+            - name: files
+              mountPath: /usr/src/myapp/files/dev
+            - name: secret-datasource
+              mountPath: /usr/src/myapp/datasource
+      volumes:  // Pod 내부의 디렉토리와 PVC를 연결하는 속성
+        - name: files
+          persistentVolumeClaim:  // pvc 지정하는 속성
+            claimName: hello-kube-01-files
+        - name: secret-datasource
+          secret:  // secret 지정하는 속성
+            secretName: hello-kube-01-postgresql
