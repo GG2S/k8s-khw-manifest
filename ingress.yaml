@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: hello-kube-01-ingress
+  namespace: k8s-khw-np-01
+  labels: # deployment label 그대로 가져옴
+    part-of: k8s-khw-project-01
+    component: backend
+    name: hello-kube
+    instance: hello-kube-01
+    version: "1.0"
+    managed-by: kubectl
+spec:
+  ingressClassName: nginx
+
+  rules:
+    - host: hello-kube.local  # hello-kube 로 이름만듬
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: hello-kube-01-sv  # 내 Service 이름 지정
+                port:
+                  number: 80
