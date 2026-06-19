@@ -42,19 +42,19 @@ spec:
                 name: hello-kube-01-properties
           startupProbe:   # 기동 체크(실패 - 재기동)
             httpGet:
-              path: "/startup"
+              path: "/"
               port: 8080
             periodSeconds: 5
             failureThreshold: 36
           readinessProbe:  # 트래픽 관리(실패 - 연결해제)
             httpGet:
-              path: "/readiness"
+              path: "/"
               port: 8080
             periodSeconds: 10
             failureThreshold: 3
           livenessProbe:   # 서비스 관리(실패 - 재기동)
             httpGet:
-              path: "/liveness"
+              path: "/"
               port: 8080
             periodSeconds: 10
             failureThreshold: 3

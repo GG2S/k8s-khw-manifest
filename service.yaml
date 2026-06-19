@@ -16,6 +16,7 @@ spec:  # 연결 정보 속성
     component: backend
     name: hello-kube
     instance: hello-kube-01
+    version: "1.0"
   ports:
     - port: 80
       targetPort: http

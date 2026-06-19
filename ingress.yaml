@@ -21,6 +21,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: hello-kube-01-sv  # 내 Service 이름 지정
+                name: hello-kube-01-svc  # 내 Service 이름 지정
                 port:
                   number: 80
