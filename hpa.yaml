@@ -1,4 +1,4 @@
-piVersion: autoscaling/v2
+apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
   namespace: k8s-khw-np-01
