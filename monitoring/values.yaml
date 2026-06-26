@@ -1,0 +1,15 @@
+grafana:
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+
+    hosts:
+      - grafana.local
+
+prometheus:
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+
+    hosts:
+      - prometheus.local
