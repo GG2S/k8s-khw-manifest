@@ -4,12 +4,7 @@ metadata:
   namespace: k8s-khw-ns-01
   name: hello-kube-01-files
   labels:
-    part-of: k8s-khw-project-01
-    component: backend
-    name: hello-kube
-    instance: hello-kube-01
-    version: "1.0"
-    managed-by: kubectl
+    {{ .Values.commonLabels . | indent 4 }}
 spec:
   accessModes:
     - ReadWriteOnce  # 읽기, 쓰기 모드 지정

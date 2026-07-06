@@ -4,36 +4,25 @@ metadata:
   namespace: k8s-khw-ns-01  # 소속되고 싶은 namespace 이름 지정
   name: hello-kube-01        # 해당 Object의 이름 지정
   labels:
-    part-of: k8s-khw-project-01
-    component: backend
-    name: hello-kube
-    instance: hello-kube-01
-    version: "1.0"
-    managed-by: manual
+    {{ .Values.commonLabels . | indent 4 }}
 spec:
   selector:
     matchLabels:
-      part-of: k8s-khw-project-01
-      component: backend
-      name: hello-kube
-      instance: hello-kube-01
-  replicas: 2  # 생성할 Pod의 수
+      {{ .Values.commonLabels.app.kubernetes.io/name | indent 6 }}
+      {{ .Values.commonLabels.app.kubernetes.io/instance | indent 6 }}
+  replicas: {{ .Values.replicaCount }}  # 생성할 Pod의 수
   strategy:    # Pod의 업데이트 방식
     type: RollingUpdate 
   template:    # Pod 생성시 적용될 템플릿
     metadata:
       labels:
-        part-of: k8s-khw-project-01
-        component: backend
-        name: hello-kube
-        instance: hello-kube-01
-        version: "1.0"
+        {{ .Values.commonLabels . }}
     spec:
       nodeSelector:  # Pod를 띄울 Node 선택
         kubernetes.io/hostname: k8s-worker1-khw
       containers:   
         - name: hello-kube-01
-          image: 0770asd/hello-kube:v1.0  # DockerHub에서 이미지 다운
+          image: {{ include "hello-kube.image" . }}  # DockerHub에서 이미지 다운
           ports:
           - name: http
             containerPort: 8080

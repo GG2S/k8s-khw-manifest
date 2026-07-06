@@ -4,12 +4,7 @@ metadata:
   namespace: k8s-khw-ns-01
   name: hello-kube-01-default
   labels:
-    part-of: k8s-khw-project-01
-    component: backend
-    name: hello-kube
-    instance: hello-kube-01
-    version: "1.0"
-    managed-by: manual
+    {{ .Values.commonLabels . | indent 4 }}
 spec:
   scaleTargetRef:  # 스케일링 대상 지정
     apiVersion: apps/v1

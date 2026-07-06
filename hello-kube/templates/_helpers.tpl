@@ -60,3 +60,26 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+
+
+{{- define "hello-kube.image" -}}
+{{ .Values.image.user }}/{{ .Values.image.repository }}:{{ .Values.image.tag }}
+{{- end}}
+
+{{- define "hello-kube.label" -}}
+
+{{- end}}
+
+
+
+
+
+
+
+
+
+
+
+
+

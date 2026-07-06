@@ -4,19 +4,11 @@ metadata:  # metadata는 Object 별로 다 있음
   namespace: k8s-khw-ns-01
   name: hello-kube-01-svc
   labels:
-    part-of: k8s-khw-project-01
-    component: backend
-    name: hello-kube
-    instance: hello-kube-01
-    version: "1.0"
-    managed-by: manual
+    {{ .Values.commonLabels . | indent 4 }}
 spec:  # 연결 정보 속성
   selector:
-    part-of: k8s-khw-project-01
-    component: backend
-    name: hello-kube
-    instance: hello-kube-01
-    version: "1.0"
+    {{ .Values.commonLabels.app.kubernetes.io/name | indent 4 }}
+    {{ .Values.commonLabels.app.kubernetes.io/instance | indent 4 }}
   ports:
     - port: 80
       targetPort: http
