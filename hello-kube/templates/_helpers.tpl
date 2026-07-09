@@ -67,9 +67,18 @@ Create the name of the service account to use
 {{ .Values.image.user }}/{{ .Values.image.repository }}:{{ .Values.image.tag }}
 {{- end}}
 
-{{- define "hello-kube.label" -}}
+{{- define "hello-kube.labels" -}}
+app.kubernetes.io/name: {{ index .Values.commonLabels "app.kubernetes.io/name" }}
+app.kubernetes.io/instance: {{ index .Values.commonLabels "app.kubernetes.io/instance" }}
+app.kubernetes.io/component: {{ index .Values.commonLabels "app.kubernetes.io/component" }}
+app.kubernetes.io/part-of: {{ index .Values.commonLabels "app.kubernetes.io/part-of" }}
+app.kubernetes.io/version: {{ index .Values.commonLabels "app.kubernetes.io/version" | quote }}
+{{- end }}
 
-{{- end}}
+{{- define "hello-kube.selectorLabels" -}}
+app.kubernetes.io/name: {{ index .Values.commonLabels "app.kubernetes.io/name" }}
+app.kubernetes.io/instance: {{ index .Values.commonLabels "app.kubernetes.io/instance" }}
+{{- end }}
 
 
 

@@ -4,7 +4,7 @@ metadata:
   namespace: k8s-khw-ns-01
   name: hello-kube-01-files
   labels:
-    {{- toYaml .Values.commonLabels | nindent 4 }}
+    {{ include "hello-kube.labels" . | indent 4 }}
 spec:
   accessModes:
     - ReadWriteOnce  # 읽기, 쓰기 모드 지정
