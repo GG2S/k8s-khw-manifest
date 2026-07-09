@@ -4,7 +4,7 @@ metadata:  # metadata는 Object 별로 다 있음
   namespace: k8s-khw-ns-01
   name: hello-kube-01-svc
   labels:
-    {{- toYaml .Values.commonLabels . | indent 4 }}
+    {{- toYaml .Values.commonLabels | indent 4 }}
 spec:  # 연결 정보 속성
   selector:
     {{ index .Values.commonLabels "app.kubernetes.io/name" | indent 4 }}
