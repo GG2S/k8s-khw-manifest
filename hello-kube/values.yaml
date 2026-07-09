@@ -3,11 +3,11 @@ image:
   user: 0770asd
   repository: hello-kube
   pullPolicy: IfNotPresent
-  tag: 0c82129
+  tag: 20841c8
 commonLabels:
   app.kubernetes.io/name: hello-kube
   app.kubernetes.io/instance: hello-kube-test
-  app.kubernetes.io/version: 
+  app.kubernetes.io/version:
   app.kubernetes.io/component: backend
   app.kubernetes.io/part-of: k8s-khw-project-01
   app.kubernetes.io/managed-by: argoCD
@@ -50,21 +50,21 @@ httpRoute:
         - path:
             type: PathPrefix
             value: /headers
-  #   filters:
-  #   - type: RequestHeaderModifier
-  #     requestHeaderModifier:
-  #       set:
-  #       - name: My-Overwrite-Header
-  #         value: this-is-the-only-value
-  #       remove:
-  #       - User-Agent
-  # - matches:
-  #   - path:
-  #       type: PathPrefix
-  #       value: /echo
-  #     headers:
-  #     - name: version
-  #       value: v2
+            #   filters:
+            #   - type: RequestHeaderModifier
+            #     requestHeaderModifier:
+            #       set:
+            #       - name: My-Overwrite-Header
+            #         value: this-is-the-only-value
+            #       remove:
+            #       - User-Agent
+            # - matches:
+            #   - path:
+            #       type: PathPrefix
+            #       value: /echo
+            #     headers:
+            #     - name: version
+            #       value: v2
 # This is to setup the liveness and readiness probes more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
 livenessProbe:
   httpGet:
