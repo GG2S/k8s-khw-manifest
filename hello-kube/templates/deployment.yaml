@@ -4,7 +4,7 @@ metadata:
   namespace: k8s-khw-ns-01  # 소속되고 싶은 namespace 이름 지정
   name: hello-kube-01        # 해당 Object의 이름 지정
   labels:
-    {{ .Values.commonLabels . | indent 4 }}
+    {{- toYaml .Values.commonLabels . | indent 4 }}
 spec:
   selector:
     matchLabels:
