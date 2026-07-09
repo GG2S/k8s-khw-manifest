@@ -5,7 +5,7 @@ metadata:
   name: hello-kube-01-ingress
   namespace: k8s-khw-ns-01
   labels: # deployment label 그대로 가져옴
-    {{ include "hello-kube.labels" . | indent 4 }}
+    {{ include "hello-kube.labels" . | nindent 4 }}
 spec:
   ingressClassName: nginx
   rules:

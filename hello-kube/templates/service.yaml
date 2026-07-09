@@ -4,10 +4,11 @@ metadata:  # metadata는 Object 별로 다 있음
   namespace: k8s-khw-ns-01
   name: hello-kube-01-svc
   labels:
-    {{ include "hello-kube.labels" . | indent 4 }}
+    {{ include "hello-kube.labels" . | nindent 4 }}
 spec:  # 연결 정보 속성
   selector:
-    {{ include "hello-kube.selectorLabels" . | indent 4 }}
+    {{ include "hello-kube.selectorLabels" . | nindent 4 }}
+  ports:
     - port: 80
       targetPort: http
       # nodePort: 31231   type이 NodePort일 때 사용

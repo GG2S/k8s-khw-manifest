@@ -37,7 +37,7 @@ app.kubernetes.io/name: {{ index .Values.commonLabels "app.kubernetes.io/name" }
 app.kubernetes.io/instance: {{ index .Values.commonLabels "app.kubernetes.io/instance" }}
 app.kubernetes.io/component: {{ index .Values.commonLabels "app.kubernetes.io/component" }}
 app.kubernetes.io/part-of: {{ index .Values.commonLabels "app.kubernetes.io/part-of" }}
-app.kubernetes.io/version: {{ index .Values.commonLabels "app.kubernetes.io/version" | quote }}
+app.kubernetes.io/version: {{ .Values.image.tag }}
 {{- end }}
 
 {{- define "hello-kube.selectorLabels" -}}
