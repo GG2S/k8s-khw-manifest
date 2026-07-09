@@ -7,8 +7,8 @@ metadata:  # metadata는 Object 별로 다 있음
     {{- toYaml .Values.commonLabels . | indent 4 }}
 spec:  # 연결 정보 속성
   selector:
-    {{ .Values.commonLabels.app.kubernetes.io/name | indent 4 }}
-    {{ .Values.commonLabels.app.kubernetes.io/instance | indent 4 }}
+    {{ index .Values.commonLabels "app.kubernetes.io/name" | indent 4 }}
+    {{ index .Values.commonLabels "app.kubernetes.io/instance" | indent 4 }}
   ports:
     - port: 80
       targetPort: http

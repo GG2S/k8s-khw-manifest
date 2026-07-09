@@ -8,15 +8,15 @@ metadata:
 spec:
   selector:
     matchLabels:
-      {{ .Values.commonLabels.app.kubernetes.io/name | indent 6 }}
-      {{ .Values.commonLabels.app.kubernetes.io/instance | indent 6 }}
+      {{ index .Values.commonLabels "app.kubernetes.io/name" | indent 6 }}
+      {{ index .Values.commonLabels "app.kubernetes.io/instance" | indent 6 }}
   replicas: {{ .Values.replicaCount }}  # 생성할 Pod의 수
   strategy:    # Pod의 업데이트 방식
     type: RollingUpdate 
   template:    # Pod 생성시 적용될 템플릿
     metadata:
       labels:
-        {{ .Values.commonLabels . }}
+        {{- toYaml .Values.commonLabels . | indent 8 }}
     spec:
       nodeSelector:  # Pod를 띄울 Node 선택
         kubernetes.io/hostname: k8s-worker1-khw
