@@ -1,32 +1,27 @@
 replicaCount: 2
-
 image:
   user: 0770asd
   repository: hello-kube
   pullPolicy: IfNotPresent
-  tag: 
-
+  tag: 0c82129
 commonLabels:
-  app.kubernetes.io/name: hello-kube  # 애플리케이션 이름
-  app.kubernetes.io/instance: hello-kube-test   # 배포 인스턴스
-  app.kubernetes.io/version: 
+  app.kubernetes.io/name: hello-kube # 애플리케이션 이름
+  app.kubernetes.io/instance: hello-kube-test # 배포 인스턴스
+  app.kubernetes.io/version:
   app.kubernetes.io/component: backend
   app.kubernetes.io/part-of: k8s-khw-project-01
   app.kubernetes.io/managed-by: argoCD
   app.kubernetes.io/created-by: manual
-
 podLabels: {}
-
 service:
   type: ClusterIP
   port: 80
-
 ingress:
   enabled: true
   className: ""
   annotations: {}
-    # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
+  # kubernetes.io/ingress.class: nginx
+  # kubernetes.io/tls-acme: "true"
   hosts:
     - host: chart-example.local
       paths:
@@ -36,7 +31,6 @@ ingress:
   #  - secretName: chart-example-tls
   #    hosts:
   #      - chart-example.local
-
 httpRoute:
   # HTTPRoute enabled.
   enabled: false
@@ -44,18 +38,18 @@ httpRoute:
   annotations: {}
   # Which Gateways this Route is attached to.
   parentRefs:
-  - name: gateway
-    sectionName: http
-    # namespace: default
+    - name: gateway
+      sectionName: http
+      # namespace: default
   # Hostnames matching HTTP header.
   hostnames:
-  - chart-example.local
+    - chart-example.local
   # List of rules and filters applied.
   rules:
-  - matches:
-    - path:
-        type: PathPrefix
-        value: /headers
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /headers
   #   filters:
   #   - type: RequestHeaderModifier
   #     requestHeaderModifier:
@@ -71,7 +65,6 @@ httpRoute:
   #     headers:
   #     - name: version
   #       value: v2
-
 # This is to setup the liveness and readiness probes more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
 livenessProbe:
   httpGet:
