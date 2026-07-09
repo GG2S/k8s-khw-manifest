@@ -4,7 +4,7 @@ metadata:
   namespace: k8s-khw-ns-01  # 소속되고 싶은 namespace 이름 지정
   name: hello-kube-01        # 해당 Object의 이름 지정
   labels:
-    {{- toYaml .Values.commonLabels | indent 4 }}
+    {{- toYaml .Values.commonLabels | nindent 4 }}
 spec:
   selector:
     matchLabels:
@@ -16,7 +16,7 @@ spec:
   template:    # Pod 생성시 적용될 템플릿
     metadata:
       labels:
-        {{- toYaml .Values.commonLabels | indent 8 }}
+        {{- toYaml .Values.commonLabels | nindent 8 }}
     spec:
       nodeSelector:  # Pod를 띄울 Node 선택
         kubernetes.io/hostname: k8s-worker1-khw

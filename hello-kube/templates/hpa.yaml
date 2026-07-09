@@ -4,7 +4,7 @@ metadata:
   namespace: k8s-khw-ns-01
   name: hello-kube-01-default
   labels:
-    {{- toYaml .Values.commonLabels | indent 4 }}
+    {{- toYaml .Values.commonLabels | nindent 4 }}
 spec:
   scaleTargetRef:  # 스케일링 대상 지정
     apiVersion: apps/v1
