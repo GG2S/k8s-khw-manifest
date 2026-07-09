@@ -1,3 +1,4 @@
+{{- if .Values.ingress.enabled }}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -7,9 +8,9 @@ metadata:
     {{- toYaml .Values.commonLabels | indent 4 }}
 spec:
   ingressClassName: nginx
-  {{- if .Values.ingress.enabled }}
   rules:
-    - host: {{ .Values.ingress.hosts.host }}  # hello-kube 로 이름만듬
+  {{- range .Values.ingress.hosts }}
+    - host: {{ .host }}  # hello-kube 로 이름만듬
       http:
         paths:
           - path: /
@@ -18,5 +19,6 @@ spec:
               service:
                 name: hello-kube-01-svc  # 내 Service 이름 지정
                 port:
-                  number: 80
+                  number: 80              
   {{- end }}
+{{- end }}
