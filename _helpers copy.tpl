@@ -23,10 +23,45 @@ If release name contains chart name it will be used as a full name.
 {{- end }}
 {{- end }}
 
+{{/*
+Create chart name and version as used by the chart label.
+*/}}
+{{- define "hello-kube.chart" -}}
+{{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
+{{- end }}
 
 {{/*
-DIY chart
+Common labels
 */}}
+{{- define "hello-kube.labels" -}}
+helm.sh/chart: {{ include "hello-kube.chart" . }}
+{{ include "hello-kube.selectorLabels" . }}
+{{- if .Chart.AppVersion }}
+app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
+{{- end }}
+app.kubernetes.io/managed-by: {{ .Release.Service }}
+{{- end }}
+
+{{/*
+Selector labels
+*/}}
+{{- define "hello-kube.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "hello-kube.name" . }}
+app.kubernetes.io/instance: {{ .Release.Name }}
+{{- end }}
+
+{{/*
+Create the name of the service account to use
+*/}}
+{{- define "hello-kube.serviceAccountName" -}}
+{{- if .Values.serviceAccount.create }}
+{{- default (include "hello-kube.fullname" .) .Values.serviceAccount.name }}
+{{- else }}
+{{- default "default" .Values.serviceAccount.name }}
+{{- end }}
+{{- end }}
+
+
 
 {{- define "hello-kube.image" -}}
 {{ .Values.image.user }}/{{ .Values.image.repository }}:{{ .Values.image.tag }}
