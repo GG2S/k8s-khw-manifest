@@ -1,4 +1,4 @@
-replicaCount: 3
+replicaCount: 2
 image:
   user: 0770asd
   repository: hello-kube
