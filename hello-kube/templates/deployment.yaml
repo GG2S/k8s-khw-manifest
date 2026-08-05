@@ -17,8 +17,8 @@ spec:
       labels:
         {{ include "hello-kube.labels" . | nindent 8 }}
     spec:
-      # nodeSelector:  # Pod를 띄울 Node 선택
-        # kubernetes.io/hostname: k8s-worker1-khw
+      nodeSelector:  # Pod를 띄울 Node 선택
+        kubernetes.io/hostname: k8s-worker1-khw
       containers:   
         - name: hello-kube-01
           image: {{ include "hello-kube.image" . }}  # DockerHub에서 이미지 다운
